@@ -26,6 +26,12 @@ namespace Weather
             this.jaipurJson = jaipurJson;
 
             // printThePrices();
+            AsyncPush();
+        }
+
+        async static void AsyncPush()
+        {
+            //await
         }
 
         public void printThePrices()
