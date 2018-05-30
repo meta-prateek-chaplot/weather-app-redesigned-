@@ -23,9 +23,6 @@ namespace Weather
             // Get the index of the observer to delete
             int observerIndex = observers.IndexOf(deleteObserver);
 
-            // Print out message (Have to increment index to match)
-            Console.WriteLine("Observer: " + (observerIndex + 1) + " deleted!");
-
             // Removes observer from the ArrayList
             observers.RemoveAt(observerIndex);
         }
