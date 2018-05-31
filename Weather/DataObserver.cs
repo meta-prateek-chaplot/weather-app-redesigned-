@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
 namespace Weather
@@ -26,18 +27,21 @@ namespace Weather
         {
             jaipurJson = newJaipurJson;
 
-            AsyncPush();
+            UpdateChartPoints();
         }
 
-        async static void AsyncPush()
+        static void UpdateChartPoints()
         {
-            Program.form.chart1.Series["Temp"].Points.Clear();
-            Program.form.chart1.Series["Pressure"].Points.Clear();
-            Program.form.chart1.Series["Humidity"].Points.Clear();
+            Program.form.Invoke((MethodInvoker)delegate
+            {
+                Program.form.chart1.Series["Temp"].Points.Clear();
+                Program.form.chart1.Series["Pressure"].Points.Clear();
+                Program.form.chart1.Series["Humidity"].Points.Clear();
 
-            Program.form.chart1.Series["Temp"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["temp"]);
-            Program.form.chart1.Series["Pressure"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["pressure"] / 100);
-            Program.form.chart1.Series["Humidity"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["humidity"]);
+                Program.form.chart1.Series["Temp"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["temp"]);
+                Program.form.chart1.Series["Pressure"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["pressure"] / 100);
+                Program.form.chart1.Series["Humidity"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["humidity"]);
+            });
         }
     }
 }
