@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace Weather
@@ -6,7 +7,7 @@ namespace Weather
     // Represents each Observer that is monitoring changes in the subject
     class DataObserver : IObserver
     {
-        private JObject jaipurJson;
+        private static JObject jaipurJson;
 
         // Will hold reference to the StockGrabber object
         private ISubject dataSubject;
@@ -21,24 +22,22 @@ namespace Weather
             dataSubject.Register(this);
         }
 
-        public void Update(JObject jaipurJson)
+        public void Update(JObject newJaipurJson)
         {
-            this.jaipurJson = jaipurJson;
+            jaipurJson = newJaipurJson;
 
-            // printThePrices();
             AsyncPush();
         }
 
         async static void AsyncPush()
         {
-            //await
-        }
+            Program.form.chart1.Series["Temp"].Points.Clear();
+            Program.form.chart1.Series["Pressure"].Points.Clear();
+            Program.form.chart1.Series["Humidity"].Points.Clear();
 
-        public void printThePrices()
-        {
-            Console.WriteLine("\nJaipur Temp: " + jaipurJson["main"]["temp"]
-                                + "\nJaipur Pressure: " + jaipurJson["main"]["pressure"]
-                                + "\nJaipur Humidity: " + jaipurJson["main"]["humidity"]);
+            Program.form.chart1.Series["Temp"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["temp"]);
+            Program.form.chart1.Series["Pressure"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["pressure"] / 100);
+            Program.form.chart1.Series["Humidity"].Points.AddXY("Jaipur", (int)jaipurJson["main"]["humidity"]);
         }
     }
 }
