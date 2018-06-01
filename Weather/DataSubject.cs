@@ -39,7 +39,15 @@ namespace Weather
 
         public void SetJson(JObject newjaipurJson)
         {
-            this.jaipurJson = newjaipurJson;
+            try
+            {
+                this.jaipurJson = newjaipurJson;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("Exception Caught: {0}", e);
+            }
+            
             NotifyObserver();
         }
     }

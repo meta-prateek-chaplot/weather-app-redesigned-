@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 
 namespace Weather
 {
@@ -28,7 +27,7 @@ namespace Weather
                 { AsyncPull(); }, null, TimeSpan.Zero, TimeSpan.FromSeconds(3));
 
             System.Threading.Thread.Sleep(3 * 1000);
-            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
